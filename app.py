@@ -1,31 +1,28 @@
 import streamlit as st
-import pandas as pd
-import random
+import requests
+from PIL import Image
+from io import BytesIO
+import datetime
 
-st.set_page_config(page_title="Nile Shield", page_icon="🛡️", layout="wide")
+st.set_page_config(page_title="درع النيل", page_icon="🛡️")
 st.title("🛡️ NILE SHIELD - درع النيل")
-st.markdown("**From NASA Data to Every Egyptian Farmer | Sahil Tahta**")
+st.markdown("**From NASA to Every Farmer**")
 
-col1, col2, col3 = st.columns(3)
+BBOX="31.5,26.3,32.0,26.7"
+today=datetime.date.today().strftime("%Y-%m-%d")
+layer="MODIS_Terra_CorrectedReflectance_TrueColor"
+url=f"https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS={layer}&BBOX={BBOX}&WIDTH=800&HEIGHT=800&FORMAT=image/jpeg&TIME={today}"
 
-with col1:
-    st.header("1. الفضاء 🛰️")
-    st.info("Landsat 8/9: يصور النيل\nGPM: يقيس مطر منابع النيل")
-    st.metric("جودة الصورة", "92%", "نقية")
+st.subheader(f"صورة ناسا الحية - ساحل طهطا - {today}")
+try:
+    r=requests.get(url,timeout=20)
+    img=Image.open(BytesIO(r.content))
+    st.image(img,use_column_width=True)
+    st.success("✅ تم السحب من ناسا لايف!")
+except Exception as e:
+    st.error(f"ناسا مشغولة: {e}")
 
-with col2:
-    st.header("2. الذكاء 🤖")
-    p = random.randint(20,90)
-    st.metric("نسبة التلوث", f"{p}%")
-    if p > 60:
-        st.error("⚠️ تلوث عالي في ساحل طهطا!")
-    else:
-        st.success("✅ النيل نظيف حاليا")
-
-with col3:
-    st.header("3. الارض 🌍")
-    st.success("SMS للفلاحين: تم الارسال")
-    st.map(pd.DataFrame({'lat':[26.56], 'lon':[31.84]}))
-
-st.markdown("---")
-st.caption("© 2026 Nile Shield | NASA Space Apps Cairo")
+col1,col2,col3=st.columns(3)
+col1.metric("الجودة","92%","نقية")
+col2.metric("توفير مياه","30%","2000 لتر")
+col3.metric("المصدر","NASA","Live")

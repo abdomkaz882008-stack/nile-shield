@@ -20,13 +20,13 @@ try:
     r = requests.get(url, timeout=25)
     if r.status_code == 200 and "image" in r.headers.get("Content-Type", ""):
         img = Image.open(BytesIO(r.content))
-        st.image(img, use_column_width=True)
+        st.image(img, use_container_width=True)
         st.success(f"NASA Live: {today}")
     else:
-        st.image("https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800", use_column_width=True)
+        st.image("https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800", use_container_width=True)
         st.warning("NASA busy, demo image shown")
 except Exception as e:
-    st.image("https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800", use_column_width=True)
+    st.image("https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800", use_container_width=True)
     st.error(f"Error {e}")
 
 c1, c2, c3 = st.columns(3)

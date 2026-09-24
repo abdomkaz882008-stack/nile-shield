@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NILE SHIELD - Live</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}
+body{background:#050505;color:#fff}
+.navbar{background:#0f0f0f;border-bottom:1px solid #222;padding:15px;text-align:center;letter-spacing:3px;font-weight:900}
+.card{background:#121212;border:1px solid #242424;border-radius:24px;padding:24px;margin:16px;text-align:center;overflow:hidden}
+.clock-card{background:radial-gradient(ellipse at center,#0a1e35 0%,#000 75%);border:1px solid #1a3a5a;padding:55px 10px}
+.clock-num{font-family:'Share Tech Mono',monospace;font-size:78px;letter-spacing:14px;color:#7ec8ff;text-shadow:0 0 18px #2a9cff,0 0 50px #2a9cff;direction:ltr}
+.glow{width:300px;height:2px;background:linear-gradient(90deg,transparent,#7ec8ff,transparent);margin:18px auto;box-shadow:0 0 12px #7ec8ff}
+.video-box{position:relative;height:260px;border-radius:18px;overflow:hidden;background:#000;margin:14px 0;border:1px solid #222}
+.video-box video{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:900}
+.red{border-color:#ff2b2b;box-shadow:0 0 30px #ff2b2b22}.red .badge{background:rgba(255,43,43,.45)}
+.yellow{border-color:#ffcc00;box-shadow:0 0 30px #ffcc0022}.yellow .badge{background:rgba(255,204,0,.35)}
+.green{border-color:#00ff88;box-shadow:0 0 30px #00ff8822}.green .badge{background:rgba(0,255,136,.32)}
+.bot{position:fixed;bottom:14px;left:14px;right:14px;background:#1c1c1c;border:1px solid #333;border-radius:18px;padding:10px;display:flex;gap:8px;z-index:999}
+.bot input{flex:1;background:#000;border:none;color:#fff;padding:13px;border-radius:12px;outline:none}
+.bot button{background:#00ff88;color:#000;border:none;padding:13px 18px;border-radius:12px;font-weight:900;cursor:pointer}
+.live-dot{width:10px;height:10px;background:red;border-radius:50%;display:inline-block;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.2}}
+</style>
+</head>
+<body>
+<div class="navbar">🛡️ NILE SHIELD - درع النيل</div>
+
+<div class="card clock-card">
+<div style="color:#335a85;font-size:10px;letter-spacing:4px">SATELLITE SYNC • LIVE TIME</div>
+<div class="clock-num" id="clock">00:00:00</div>
+<div class="glow"></div>
+<div style="color:#555;font-size:12px" id="date">Tahta - Sohag - Egypt</div>
+</div>
+
+<div class="card">
+<h2>🤖 الذكاء الاصطناعي</h2>
+<div style="font-size:76px;font-weight:900;color:#00ff88;margin:12px 0">73.1%</div>
+<p>✅ الوضع : آمن</p>
+<p style="color:#ff5555;margin-top:8px"><span class="live-dot"></span> LIVE - كل ثانيتين</p>
+</div>
+
+<div class="card">
+<h2>🌍 الأرض</h2>
+<p>📍 ساحل طهطا - سوهاج</p>
+<p style="margin:8px 0;color:#aaa">26.56, 31.84</p>
+<button onclick="alert('تم ارسال تنبيه لـ 120 فلاح في طهطا!')" style="background:#00ff88;color:#000;border:none;padding:12px 22px;border-radius:12px;font-weight:900;cursor:pointer">📲 ارسال تنبيه</button>
+</div>
+
+<div class="card red">
+<div class="video-box">
+<video autoplay loop muted playsinline><source src="satellite.mp4" type="video/mp4"></video>
+<div class="badge">🔴 12%</div>
+</div>
+<h2 style="color:#ff4444">خطر - جفاف شديد</h2>
+<p>غرب طهطا - رطوبة التربة منخفضة جدا</p>
+<canvas id="c1" height="120"></canvas>
+</div>
+
+<div class="card yellow">
+<div class="video-box">
+<video autoplay loop muted playsinline><source src="satellite.mp4" type="video/mp4"></video>
+<div class="badge">🟡 54%</div>
+</div>
+<h2 style="color:#ffcc00">متوسط - محتاج متابعة</h2>
+<p>شرق طهطا - محتاج ري خلال 48 ساعة</p>
+<canvas id="c2" height="120"></canvas>
+</div>
+
+<div class="card green">
+<div class="video-box">
+<video autoplay loop muted playsinline><source src="satellite.mp4" type="video/mp4"></video>
+<div class="badge">🟢 91%</div>
+</div>
+<h2 style="color:#00ff88">آمن - نمو ممتاز</h2>
+<p>وسط طهطا - المحصول في أفضل حالة</p>
+<canvas id="c3" height="120"></canvas>
+</div>
+
+<div class="card"><h3>📈 نمو المحصول آخر 6 شهور</h3><canvas id="grow"></canvas></div>
+<div class="card"><h3>💧 نسبة المياه في التربة</h3><canvas id="water"></canvas></div>
+<div class="card"><h3>🌡️ حرارة الأرض</h3><canvas id="temp"></canvas></div>
+<div class="card"><h3>🛰️ تحليل صور القمر 2019-2025</h3><canvas id="years"></canvas></div>
+<div class="card"><h3>🌾 توزيع المحاصيل</h3><canvas id="crops"></canvas></div>
+<div class="card"><h3>📡 قوة إشارة القمر</h3><canvas id="signal"></canvas></div>
+<div class="card"><h3>👨‍🌾 عدد الفلاحين المستفيدين</h3><canvas id="farmers"></canvas></div>
+
+<div class="card" style="background:#000;border:2px solid #00ff88;margin-bottom:110px">
+<h2 style="color:#00ff88">NASA Space Apps Challenge 2025</h2>
+<p style="color:#aaa;margin:18px 0;line-height:1.8">This project is part of NASA Space Apps Challenge 2025<br>Nile Shield - Protecting Agriculture from Space<br>Using NASA Open Data, Sentinel-2, Landsat-9 & AI<br>Monitoring 120 Farmers in Tahta, Sohag, Egypt</p>
+<p style="font-weight:900;font-size:18px">Designed by Eng. Abdullah Mohamed Refaie</p>
+</div>
+
+<div class="bot">
+<input id="botIn" placeholder="اسأل البوت عن المحصول...">
+<button onclick="if(botIn.value){alert('🤖 Bot: الوضع آمن 73.1% - سؤالك: '+botIn.value);botIn.value=''}">إرسال</button>
+</div>
+
+<script>
+function tick(){
+ const now=new Date();
+ document.getElementById('clock').textContent=now.toLocaleTimeString('en-GB',{hour12:false});
+ document.getElementById('date').textContent=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})+' - Live Tahta';
+}
+setInterval(tick,1000); tick();
+new Chart(c1,{type:'line',data:{labels:['1','2','3','4','5','6'],datasets:[{label:'رطوبة %',data:[30,28,22,18,14,12],borderColor:'#ff2b2b',backgroundColor:'#ff2b2b33',tension:.4}]},options:{plugins:{legend:{display:false}}}});
+new Chart(c2,{type:'line',data:{labels:['1','2','3','4','5','6'],datasets:[{label:'رطوبة %',data:[40,45,50,52,53,54],borderColor:'#ffcc00',backgroundColor:'#ffcc0033',tension:.4}]},options:{plugins:{legend:{display:false}}}});
+new Chart(c3,{type:'line',data:{labels:['1','2','3','4','5','6'],datasets:[{label:'رطوبة %',data:[80,82,85,88,90,91],borderColor:'#00ff88',backgroundColor:'#00ff8833',tension:.4}]},options:{plugins:{legend:{display:false}}}});
+new Chart(grow,{type:'line',data:{labels:['يناير','فبراير','مارس','ابريل','مايو','يونيو'],datasets:[{label:'نمو %',data:[20,35,50,65,75,91],borderColor:'#00ff88',tension:.4}]}});
+new Chart(water,{type:'bar',data:{labels:['غرب','شرق','وسط'],datasets:[{label:'مياه %',data:[12,54,91],backgroundColor:['#ff2b2b','#ffcc00','#00ff88']}]}});
+new Chart(temp,{type:'line',data:{labels:['6ص','12ظ','6م','12ص'],datasets:[{label:'حرارة',data:[22,35,32,26],borderColor:'#ff8800',tension:.4}]}});
+new Chart(years,{type:'line',data:{labels:['2019','2020','2021','2022','2023','2024','2025'],datasets:[{label:'صحة المحصول',data:[60,62,65,70,75,80,91],borderColor:'#00aaff',tension:.4}]}});
+new Chart(crops,{type:'doughnut',data:{labels:['قمح','ذرة','برسيم','خضار'],datasets:[{data:[40,25,20,15],backgroundColor:['#00ff88','#ffcc00','#2a9cff','#ff2b2b']}]}});
+new Chart(signal,{type:'line',data:{labels:['1','2','3','4','5'],datasets:[{data:[80,85,90,88,92],borderColor:'#7ec8ff',tension:.4}]}});
+new Chart(farmers,{type:'bar',data:{labels:['يناير','فبراير','مارس','ابريل','مايو'],datasets:[{data:[20,45,70,95,120],backgroundColor:'#00ff88'}]}});
+</script>
+</body>
+  </html>

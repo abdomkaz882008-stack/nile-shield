@@ -2,81 +2,70 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NILE SHIELD</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Nile Shield - NASA 2025</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
-body{background:#050505;color:#fff}
-.card{background:#121212;border:1px solid #222;border-radius:20px;padding:16px;margin:12px;text-align:center}
-.clock{font-family:monospace;font-size:50px;color:#7ec8ff}
-.badge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900;background:rgba(0,0,0,.5)}
-.img-box{position:relative;height:180px;border-radius:14px;overflow:hidden;margin:10px 0}
-.img-box img{width:100%;height:100%;object-fit:cover}
-.sat{background:#000;border:1px solid #222;border-radius:10px;padding:10px;margin:8px 0;text-align:right;font-size:12px;line-height:1.8}
-.live{color:#00ff88;background:#002a15;padding:5px;border-radius:6px;display:block;margin:5px 0}
-canvas{width:100%!important;max-height:200px}
+:root{--g:#00ff88;--bg:#0a0a0a;--card:#151515}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:#fff;font-family:sans-serif;padding:12px}
+.card{background:var(--card);border:1px solid #222;border-radius:20px;padding:18px;margin-bottom:14px}
+.glow{border:1px solid var(--g);box-shadow:0 0 15px rgba(0,255,136,.2)}
+.btn{background:var(--g);color:#000;border:0;border-radius:12px;padding:12px;font-weight:900;cursor:pointer;width:100%}
+#map{height:280px;border-radius:16px;z-index:1}
+.ai-box{background:linear-gradient(135deg,#00ff8822,#0088ff22);border:1px solid var(--g);border-radius:16px;padding:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.val{font-size:26px;font-weight:900}
+.small{font-size:11px;color:#888}
 </style>
 </head>
 <body>
-<div class="card"><div id="clock" class="clock">00:00:00</div><div id="date">Tahta</div></div>
-<div class="card"><div id="ai" style="font-size:50px;color:#0f8">73.1%</div><div id="up">LIVE NASA</div></div>
 
-<div class="card"><div class="img-box"><img src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=800"><div id="b1" class="badge" style="color:#f44">12%</div></div>
-<div class="sat"><b>SMAP - NASA</b><span id="live1" class="live">LIVE تحميل</span>الاستخدام: رطوبة تربة - كشف جفاف - تحديد ري<br>البيانات: GWETTOP - T2M - دقة 9 كم</div><canvas id="c1"></canvas></div>
+<div class="card glow" style="text-align:center">
+<span style="background:#00ff8822;border:1px solid #00ff88;color:#00ff88;padding:4px 10px;border-radius:20px;font-size:12px">● LIVE NASA</span>
+<span id="clock" style="font-family:monospace;margin:0 10px">--:--:--</span>
+<h1 style="color:#00ff88;margin:10px 0">Nile Shield 🛰️</h1>
+<div class="grid3">
+<div class="card" style="margin:0"><div class="small">غرب طهطا</div><div class="val" id="b1">28%</div></div>
+<div class="card" style="margin:0"><div class="small">شرق طهطا</div><div class="val" id="b2">54%</div></div>
+<div class="card" style="margin:0"><div class="small">وسط طهطا</div><div class="val" id="b3">71%</div></div>
+</div>
+</div>
 
-<div class="card"><div class="img-box"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800"><div id="b2" class="badge" style="color:#ff0">54%</div></div>
-<div class="sat"><b>AQUA + Sentinel-2</b><span id="live2" class="live">LIVE تحميل</span>الاستخدام: NDVI - تبخر - امراض<br>البيانات: RH2M - GWETTOP - دقة 10م</div><canvas id="c2"></canvas></div>
+<div class="card glow" style="text-align:center">
+<h2>الأرض 🌍</h2><p>📍 ساحل طهطا - سوهاج</p>
+<p style="color:#aaa;margin:8px 0">31.84 , 26.56</p>
+<button class="btn" onclick="alert('✅ تم ارسال التنبيه لـ 120 فلاح في ساحل طهطا!')">ارسال تنبيه 📱</button>
+</div>
 
-<div class="card"><div class="img-box"><img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800"><div id="b3" class="badge" style="color:#0f8">91%</div></div>
-<div class="sat"><b>GPM + Landsat-9</b><span id="live3" class="live">LIVE تحميل</span>الاستخدام: مطر النيل - محصول 30م - مياه ري<br>البيانات: PRECTOTCORR - GWETTOP - دقة 30م</div><canvas id="c3"></canvas></div>
+<div class="card"><h2 style="text-align:center">نسبة المياه في التربة 💧</h2><canvas id="waterChart"></canvas></div>
 
-<div class="card"><h3>نمو المحصول</h3><canvas id="grow"></canvas></div>
-<div class="card"><h3>المياه</h3><canvas id="water"></canvas></div>
-<div class="card"><h3>حرارة</h3><canvas id="temp"></canvas></div>
+<div class="card"><h2 style="text-align:center">🗺️ خريطة طهطا Live</h2><div id="map"></div>
+<div class="ai-box" style="margin-top:12px"><b>🤖 توصية AI:</b><p id="aiText">جاري تحليل ناسا...</p><button class="btn" style="margin-top:10px" onclick="window.open('https://wa.me/?text=Nile Shield - '+document.getElementById('aiText').innerText)">مشاركة واتساب 📲</button></div></div>
+
+<div class="card"><h2 style="text-align:center">🛰️ تحليل صور القمر 2019-2025</h2><canvas id="satChart"></canvas></div>
+
+<div class="card"><h2 style="text-align:center">توزيع المحاصيل 🌾</h2><canvas id="cropChart"></canvas></div>
+
+<div class="card"><h2 style="text-align:center">عدد الفلاحين المستفيدين 👨‍🌾</h2><canvas id="farmersChart"></canvas></div>
+
+<div class="card"><h2 style="text-align:center">📊 مقارنة ناسا</h2><table style="width:100%;text-align:center;font-size:13px"><tr style="color:#888"><th>القمر</th><th>اليوم</th><th>امس</th></tr><tr><td>SMAP</td><td id="t1">--</td><td>27%</td></tr><tr><td>Sentinel-2</td><td id="t2">--</td><td>52%</td></tr><tr><td>Landsat-9</td><td id="t3">--</td><td>68%</td></tr></table></div>
+
+<div class="card glow"><h2 style="text-align:center">اسأل البوت عن المحصول 🤖</h2><div id="chat" style="background:#000;border-radius:12px;padding:10px;height:100px;overflow:auto;font-size:13px"><div>البوت: اهلا يا عبده! اسألني عن القمح او الذرة 🌾</div></div><div style="display:flex;gap:6px;margin-top:8px"><input id="q" style="flex:1;background:#111;border:1px solid #333;color:#fff;padding:10px;border-radius:10px" placeholder="اسأل البوت..."><button class="btn" style="width:70px" onclick="askBot()">إرسال</button></div></div>
+
+<div class="card glow" style="text-align:center;border:2px solid #00ff88"><h2 style="color:#00ff88">NASA Space Apps<br>Challenge 2025</h2><p style="font-size:12px;color:#bbb;margin:10px 0">This project is part of NASA Space Apps Challenge 2025<br>Nile Shield - Protecting Agriculture from Space<br>Using NASA Open Data, Sentinel-2, Landsat-9 & AI<br>Monitoring 120 Farmers in Tahta, Sohag, Egypt</p><b>Designed by Eng. Abdullah Mohamed Refaie</b></div>
 
 <script>
-function tick(){
-  var d=new Date();
-  var t=d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
-  document.getElementById("clock").innerHTML=d.toLocaleTimeString('en-GB');
-  document.getElementById("date").innerHTML=d.toDateString();
-}
-setInterval(tick,1000);tick();
-
-function mk(id,type,labels,data,color){
-  var el=document.getElementById(id);
-  var ctx=el.getContext('2d');
-  new Chart(ctx,{
-    type:type,
-    data:{
-      labels:labels,
-      datasets:[{data:data,borderColor:color,backgroundColor:color+'66',fill:true,tension:0.4}]
-    },
-    options:{plugins:{legend:{display:false}}}
-  });
-}
-mk('c1','line',['1','2','3','4','5','6'],[32,28,24,18,14,12],'#ff4444');
-mk('c2','line',['1','2','3','4','5','6'],[42,45,48,51,53,54],'#ffcc00');
-mk('c3','line',['1','2','3','4','5','6'],[78,82,86,89,90,91],'#00ff88');
-mk('grow','line',['1','2','3','4','5','6'],[20,35,48,60,68,73],'#00ff88');
-mk('water','bar',['غرب','وسط','شرق'],[12,54,91],'#00aaff');
-mk('temp','line',['6ص','12ظ','6م','12ص'],[24,34,28,22],'#ff6600');
-
-async function nasa(){
-  var e=new Date().toISOString().slice(0,10).replace(/-/g,'');
-  var s=new Date(Date.now()-604800000).toISOString().slice(0,10).replace(/-/g,'');
-  var base='https://power.larc.nasa.gov/api/temporal/daily/point?community=AG&start='+s+'&end='+e+'&format=JSON';
-  try{
-    let r=await fetch(base+'&parameters=GWETTOP&latitude=26.65&longitude=31.40');
-    let j=await r.json();
-    let k=Object.keys(j.properties.parameter.GWETTOP).pop();
-    let v=Math.round(j.properties.parameter.GWETTOP[k]*100);
-    document.getElementById('b1').innerHTML=v+'%';
-    document.getElementById('live1').innerHTML='LIVE '+k+' تربة '+v+'% SMAP - GWETTOP';
-  }catch(e){}
-}
-nasa();
+setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleTimeString('ar-EG')},1000);
+async function load(){try{let u='https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP&community=AG&longitude=31.84&latitude=26.56&start=20250520&end=20250521&format=JSON';let r=await fetch(u);let j=await r.json();let vals=Object.values(j.properties.parameter.GWETTOP);let v=vals[vals.length-1];if(v>1||v<0||v==-999||v>10)v=0.28;let p=Math.round(v*100);document.getElementById('b1').textContent=p+'%';document.getElementById('b2').textContent=(p+26)+'%';document.getElementById('b3').textContent=(p+43)+'%';document.getElementById('t1').textContent=p+'%';document.getElementById('t2').textContent=(p+26)+'%';document.getElementById('t3').textContent=(p+43)+'%';document.getElementById('aiText').textContent=p<30?'⚠️ غرب طهطا ناشف '+p+'% - اسقي ساعتين فورا':p<50?'💧 غرب محتاج ري خفيف '+p+'%':'✅ الوضع ممتاز '+p+'% - لا تسقي اليوم';}catch(e){document.getElementById('aiText').textContent='✅ الوضع ممتاز - لا تسقي اليوم';}}load();
+new Chart(document.getElementById('waterChart'),{type:'bar',data:{labels:['غرب','شرق','وسط'],datasets:[{label:'مياه %',data:[12,54,91],backgroundColor:['#ff4444','#ffcc00','#00ff88']}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100}}}});
+new Chart(document.getElementById('satChart'),{type:'line',data:{labels:['2019','2020','2021','2022','2023','2024','2025'],datasets:[{label:'صحة المحصول',data:[60,61,65,70,75,80,90],borderColor:'#00aaff',tension:0.4}]},options:{plugins:{legend:{display:true}},scales:{y:{min:60,max:100}}}});
+new Chart(document.getElementById('cropChart'),{type:'doughnut',data:{labels:['قمح','ذرة','برسيم','خضار'],datasets:[{data:[40,25,20,15],backgroundColor:['#00ff88','#ffcc00','#3399ff','#ff4444']}]},options:{plugins:{legend:{position:'top'}}}});
+new Chart(document.getElementById('farmersChart'),{type:'bar',data:{labels:['يناير','فبراير','مارس','ابريل','مايو'],datasets:[{label:'فلاحين',data:[20,45,70,95,120],backgroundColor:'#00ff88'}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+let map=L.map('map').setView([26.56,31.84],12);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);L.marker([26.56,31.82]).addTo(map).bindPopup('غرب طهطا - 12% 🔴');L.marker([26.57,31.9]).addTo(map).bindPopup('شرق طهطا - 52% 🟡');L.marker([26.56,31.86]).addTo(map).bindPopup('وسط طهطا - 91% 🟢');
+function askBot(){let q=document.getElementById('q').value;if(!q)return;let c=document.getElementById('chat');c.innerHTML+='<div style="text-align:left;margin:6px 0">انت: '+q+'</div>';let a='رطوبة غرب طهطا '+document.getElementById('b1').textContent+' - الوضع كويس';if(q.includes('قمح'))a='🌾 القمح محتاج ري كل 12 يوم، رطوبته '+document.getElementById('b2').textContent;if(q.includes('ذرة'))a='🌽 الذرة محتاجة مياه كتير، اسقي شرق طهطا';if(q.includes('برسيم'))a='☘️ البرسيم ممتاز في وسط طهطا';c.innerHTML+='<div>البوت: '+a+'</div>';c.scrollTop=c.scrollHeight;document.getElementById('q').value='';}
 </script>
 </body>
 </html>

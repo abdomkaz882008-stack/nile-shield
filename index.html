@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NILE SHIELD</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{background:#050505;color:#fff}
+.card{background:#121212;border:1px solid #222;border-radius:20px;padding:16px;margin:12px;text-align:center}
+.clock{font-family:monospace;font-size:50px;color:#7ec8ff}
+.badge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900;background:rgba(0,0,0,.5)}
+.img-box{position:relative;height:180px;border-radius:14px;overflow:hidden;margin:10px 0}
+.img-box img{width:100%;height:100%;object-fit:cover}
+.sat{background:#000;border:1px solid #222;border-radius:10px;padding:10px;margin:8px 0;text-align:right;font-size:12px;line-height:1.8}
+.live{color:#00ff88;background:#002a15;padding:5px;border-radius:6px;display:block;margin:5px 0}
+canvas{width:100%!important;max-height:200px}
+</style>
+</head>
+<body>
+<div class="card"><div id="clock" class="clock">00:00:00</div><div id="date">Tahta</div></div>
+<div class="card"><div id="ai" style="font-size:50px;color:#0f8">73.1%</div><div id="up">LIVE NASA</div></div>
+
+<div class="card"><div class="img-box"><img src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=800"><div id="b1" class="badge" style="color:#f44">12%</div></div>
+<div class="sat"><b>SMAP - NASA</b><span id="live1" class="live">LIVE تحميل</span>الاستخدام: رطوبة تربة - كشف جفاف - تحديد ري<br>البيانات: GWETTOP - T2M - دقة 9 كم</div><canvas id="c1"></canvas></div>
+
+<div class="card"><div class="img-box"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800"><div id="b2" class="badge" style="color:#ff0">54%</div></div>
+<div class="sat"><b>AQUA + Sentinel-2</b><span id="live2" class="live">LIVE تحميل</span>الاستخدام: NDVI - تبخر - امراض<br>البيانات: RH2M - GWETTOP - دقة 10م</div><canvas id="c2"></canvas></div>
+
+<div class="card"><div class="img-box"><img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800"><div id="b3" class="badge" style="color:#0f8">91%</div></div>
+<div class="sat"><b>GPM + Landsat-9</b><span id="live3" class="live">LIVE تحميل</span>الاستخدام: مطر النيل - محصول 30م - مياه ري<br>البيانات: PRECTOTCORR - GWETTOP - دقة 30م</div><canvas id="c3"></canvas></div>
+
+<div class="card"><h3>نمو المحصول</h3><canvas id="grow"></canvas></div>
+<div class="card"><h3>المياه</h3><canvas id="water"></canvas></div>
+<div class="card"><h3>حرارة</h3><canvas id="temp"></canvas></div>
+
+<script>
+function tick(){
+  var d=new Date();
+  var t=d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
+  document.getElementById("clock").innerHTML=d.toLocaleTimeString('en-GB');
+  document.getElementById("date").innerHTML=d.toDateString();
+}
+setInterval(tick,1000);tick();
+
+function mk(id,type,labels,data,color){
+  var el=document.getElementById(id);
+  var ctx=el.getContext('2d');
+  new Chart(ctx,{
+    type:type,
+    data:{
+      labels:labels,
+      datasets:[{data:data,borderColor:color,backgroundColor:color+'66',fill:true,tension:0.4}]
+    },
+    options:{plugins:{legend:{display:false}}}
+  });
+}
+mk('c1','line',['1','2','3','4','5','6'],[32,28,24,18,14,12],'#ff4444');
+mk('c2','line',['1','2','3','4','5','6'],[42,45,48,51,53,54],'#ffcc00');
+mk('c3','line',['1','2','3','4','5','6'],[78,82,86,89,90,91],'#00ff88');
+mk('grow','line',['1','2','3','4','5','6'],[20,35,48,60,68,73],'#00ff88');
+mk('water','bar',['غرب','وسط','شرق'],[12,54,91],'#00aaff');
+mk('temp','line',['6ص','12ظ','6م','12ص'],[24,34,28,22],'#ff6600');
+
+async function nasa(){
+  var e=new Date().toISOString().slice(0,10).replace(/-/g,'');
+  var s=new Date(Date.now()-604800000).toISOString().slice(0,10).replace(/-/g,'');
+  var base='https://power.larc.nasa.gov/api/temporal/daily/point?community=AG&start='+s+'&end='+e+'&format=JSON';
+  try{
+    let r=await fetch(base+'&parameters=GWETTOP&latitude=26.65&longitude=31.40');
+    let j=await r.json();
+    let k=Object.keys(j.properties.parameter.GWETTOP).pop();
+    let v=Math.round(j.properties.parameter.GWETTOP[k]*100);
+    document.getElementById('b1').innerHTML=v+'%';
+    document.getElementById('live1').innerHTML='LIVE '+k+' تربة '+v+'% SMAP - GWETTOP';
+  }catch(e){}
+}
+nasa();
+</script>
+</body>
+</html>

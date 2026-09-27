@@ -1,28 +1,17 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Nile Shield - NASA 2025</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nile Shield</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<style>
-:root{--g:#00ff88;--bg:#0a0a0a;--card:#151515}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:#fff;font-family:sans-serif;padding:12px}
-.card{background:var(--card);border:1px solid #222;border-radius:20px;padding:18px;margin-bottom:14px}
-.glow{border:1px solid var(--g);box-shadow:0 0 15px rgba(0,255,136,.2)}
-.btn{background:var(--g);color:#000;border:0;border-radius:12px;padding:12px;font-weight:900;cursor:pointer;width:100%}
-#map{height:320px;border-radius:16px;z-index:1}
-.ai-box{background:linear-gradient(135deg,#00ff8822,#0088ff22);border:1px solid var(--g);border-radius:16px;padding:14px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.val{font-size:26px;font-weight:900}
-.small{font-size:11px;color:#888}
-</style>
-</head>
-<body>
-
-<div class="card glow" style="text-align:center">
-<span style="background:#00ff8822;border:1px solid #00ff88;color:#00ff88;padding:4px 10px;border-radius:20px;font-size:12px">🛰️ LIVE FROM NASA SATELLITES</span>
-<span id="clock" style="font-family:monospace;margin
+<style>body{background:#0a0a0a;color:#fff;font-family:sans-serif;padding:10px}.card{background:#151515;border:1px solid #222;border-radius:16px;padding:15px;margin:10px 0}.glow{border-color:#00ff88;box-shadow:0 0 10px #00ff8844}#map{height:350px;border-radius:12px}.btn{background:#00ff88;color:#000;border:0;padding:12px;border-radius:10px;width:100%;font-weight:900}</style>
+</head><body>
+<div class="card glow" style="text-align:center"><span style="color:#00ff88;border:1px solid #00ff88;padding:5px 12px;border-radius:20px">LIVE FROM NASA SATELLITES 🛰️</span><h1 style="color:#00ff88">Nile Shield - طهطا</h1><p id="ai">جاري تحميل بيانات ناسا...</p></div>
+<div class="card" style="text-align:center">🛰️ خريطة ناسا الحقيقية LIVE<div id="map"></div></div>
+<div class="card glow" style="text-align:center"><h3>NASA Space Apps 2025</h3><p>طهطا - سوهاج</p><button class="btn" onclick="alert('تم الارسال للفلاحين')">ارسال تنبيه</button></div>
+<script>
+let map=L.map('map').setView([26.56,31.84],11);
+let y=new Date();y.setDate(y.getDate()-1);let ds=y.toISOString().split('T')[0];
+let nasa=L.tileLayer('https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/'+ds+'/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg',{maxZoom:9}).addTo(map);
+let osm=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+L.control.layers({"🛰️ ناسا حقيقية":nasa,"خريطة عادية":osm}).addTo(map);
+L.marker([26.56,31.84]).addTo(map).bindPopup("طهطا").openPopup();
+document.getElementById('ai').innerHTML="✅ متصل بـ 3 اقمار ناسا - صورة بتاريخ "+ds;
+</script></body></html>

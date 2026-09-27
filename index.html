@@ -1,33 +1,7 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nile Shield - طهطا</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>body{background:#0a0a0a;color:#fff;font-family:sans-serif;padding:10px;margin:0}.card{background:#141414;border:1px solid #333;border-radius:20px;padding:16px;margin:14px 0}.glow{border-color:#00ff88;box-shadow:0 0 12px #00ff8833}#map{height:380px;border-radius:14px;margin-top:10px}.btn{background:#00ff88;color:#000;border:0;padding:14px;border-radius:12px;width:100%;font-weight:900;font-size:17px}.badge{border:1px solid #00ff88;color:#00ff88;padding:4px 12px;border-radius:20px;font-size:13px}.pct{display:flex;gap:8px;text-align:center;margin-top:12px}.pct div{flex:1;background:#0f0f0f;border:1px solid #222;border-radius:14px;padding:10px}</style>
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nile Shield</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>body{background:#0a0a0a;color:#fff;font-family:sans-serif;padding:10px} .card{background:#151515;border:1px solid #222;border-radius:20px;padding:16px;margin:12px 0} .glow{border-color:#00ff88;box-shadow:0 0 10px #00ff8833} #map{height:380px;border-radius:12px} .btn{background:#00ff88;color:#000;border:0;padding:13px;border-radius:12px;width:100%;font-weight:900}</style>
 </head><body>
-
-<div class="card glow" style="text-align:center">
-<div style="display:flex;justify-content:space-between;align-items:center"><span id="time" style="font-size:12px;color:#aaa"></span><span class="badge">● LIVE NASA</span></div>
-<h1 style="color:#00ff88;margin:10px 0">🛰️ Nile Shield</h1>
-<div class="pct"><div><small style="color:#aaa">غرب طهطا</small><h2>7%</h2></div><div><small style="color:#aaa">شرق طهطا</small><h2>33%</h2></div><div><small style="color:#aaa">وسط طهطا</small><h2>50%</h2></div></div>
-</div>
-
-<div class="card glow" style="text-align:center">
-<h2>🌍 الأرض</h2><p>📍 ساحل طهطا - سوهاج</p><p style="color:#888">31.84 , 26.56</p>
-<button class="btn" onclick="alert('✅ تم ارسال التنبيه للفلاحين')">📱 ارسال تنبيه</button>
-</div>
-
-<div class="card"><h2 style="text-align:center">💧 نسبة المياه في التربة</h2><canvas id="waterChart"></canvas></div>
-
-<div class="card" style="text-align:center">🗺️ خريطة طهطا Live<div id="map"></div><p id="ai" style="font-size:12px;color:#888;margin-top:8px"></p></div>
-
-<div class="card glow"><h2 style="text-align:center">🛰️ صور الأقمار واستخدامها</h2>
-<div style="display:grid;gap:10px;margin-top:12px">
-<div style="background:#0f0f0f;border:1px solid #222;border-radius:12px;padding:12px"><b style="color:#00ff88">1. SMAP - رطوبة التربة</b><br><span style="font-size:12px;color:#aaa">بيقيس المياه في التربة لعمق 5سم كل 3 ايام - بنستخدمه لتحديد ميعاد الري في غرب طهطا</span><br><span style="font-size:11px;background:#00ff8822;padding:3px 8px;border-radius:10px">دقة 9كم - LIVE</span></div>
-<div style="background:#0f0f0f;border:1px solid #222;border-radius:12px;padding:12px"><b style="color:#ffcc00">2. Sentinel-2 - صحة المحصول</b><br><span style="font-size:12px;color:#aaa">بيصور الأرض بالألوان الحمراء والخضرا NDVI - بنعرف القمح تعبان ولا كويس</span><br><span style="font-size:11px;background:#ffcc0022;padding:3px 8px;border-radius:10px">دقة 10م - كل 5 ايام</span></div>
-<div style="background:#0f0f0f;border:1px solid #222;border-radius:12px;padding:12px"><b style="color:#00aaff">3. Landsat-9 - توزيع المحاصيل</b><br><span style="font-size:12px;color:#aaa">أقدم قمر من 1972 - بنستخدمه لمقارنة 2019-2025 وتوزيع القمح والذرة والبرسيم</span><br><span style="font-size:11px;background:#00aaff22;padding:3px 8px;border-radius:10px">دقة 30م - أرشيف 50 سنة</span></div>
-</div>
-<div style="margin-top:12px"><button class="btn" style="background:#00ff88" onclick="alert('تمت مشاركة التقرير')">📱 مشاركة واتساب</button></div>
-</div>
-
-<div class="card"><h2 style="text-align:center">🛰️ تحليل صور القمر 2019-2025</h2><canvas id="lineChart"></canvas></div>
-
-<div class="card glow" style="text-align:center"><h3>NASA Space Apps 2025 -
+<div class="card glow" style="text-align:center"><span style="border:1px solid #00ff88;color:#00ff88;padding:4px 12px;border-radius:20px;font-size:12px">LIVE NASA ●</span><h1 style="color:#00ff88">Nile Shield</h1><div style="display:flex;gap:8px"><div style="flex:1;background:#0f0f0f;padding:10px;border-radius:12px"><small>غرب طهطا</small><h2>7%</h2></div><div style="flex:1;background:#0f0f0f;padding:10px;border-radius:12px"><small>شرق طهطا</small><h2>33%</h2></div><div style="flex:1;background:#0f0f0f;padding:10px;border-radius:12px"><small>وسط طهطا</small><h2>50%</h2></div></div></div>
+<div class="card glow" style="text-align:center"><h2>🌍 الأرض</h2><p>ساحل طهطا - سوهاج</p><p style="color:#888">26.56, 31.84</p><button class="btn" onclick="alert('تم الارسال')">📱 ارسال تنبيه</button></div>
+<div class="card"><h2 style="text

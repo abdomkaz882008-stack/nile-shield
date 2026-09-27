@@ -1,17 +1,2 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nile Shield</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<style>body{background:#0a0a0a;color:#fff;font-family:sans-serif;padding:10px}.card{background:#151515;border:1px solid #222;border-radius:16px;padding:15px;margin:10px 0}.glow{border-color:#00ff88;box-shadow:0 0 10px #00ff8844}#map{height:350px;border-radius:12px}.btn{background:#00ff88;color:#000;border:0;padding:12px;border-radius:10px;width:100%;font-weight:900}</style>
-</head><body>
-<div class="card glow" style="text-align:center"><span style="color:#00ff88;border:1px solid #00ff88;padding:5px 12px;border-radius:20px">LIVE FROM NASA SATELLITES 🛰️</span><h1 style="color:#00ff88">Nile Shield - طهطا</h1><p id="ai">جاري تحميل بيانات ناسا...</p></div>
-<div class="card" style="text-align:center">🛰️ خريطة ناسا الحقيقية LIVE<div id="map"></div></div>
-<div class="card glow" style="text-align:center"><h3>NASA Space Apps 2025</h3><p>طهطا - سوهاج</p><button class="btn" onclick="alert('تم الارسال للفلاحين')">ارسال تنبيه</button></div>
-<script>
-let map=L.map('map').setView([26.56,31.84],11);
-let y=new Date();y.setDate(y.getDate()-1);let ds=y.toISOString().split('T')[0];
-let nasa=L.tileLayer('https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/'+ds+'/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg',{maxZoom:9}).addTo(map);
-let osm=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-L.control.layers({"🛰️ ناسا حقيقية":nasa,"خريطة عادية":osm}).addTo(map);
-L.marker([26.56,31.84]).addTo(map).bindPopup("طهطا").openPopup();
-document.getElementById('ai').innerHTML="✅ متصل بـ 3 اقمار ناسا - صورة بتاريخ "+ds;
-</script></body></html>
+
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nile Shield</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><style>body{background:#0a0a0a;color:#fff;font-family:sans-serif;padding:10px}.card{background:#151515;border:1px solid #222;border-radius:16px;padding:15px;margin:10px 0}.glow{border-color:#00ff88;box-shadow:0 0 10px #00ff8844}#map{height:400px;border-radius:12px}.btn{background:#00ff88;color:#000;border:0;padding:12px;border-radius:10px;width:100%;font-weight:900;font-size:18px}</style></head><body><div class="card glow" style="text-align:center"><span style="color:#00ff88;border:1px solid #00ff88;padding:6px 14px;border-radius:20px">LIVE FROM NASA 🛰️</span><h1 style="color:#00ff88;margin:10px 0">Nile Shield - طهطا</h1><p id="ai" style="color:#aaa">جاري تحميل بيانات ناسا...</p></div><div class="card" style="text-align:center">🛰️ خريطة ناسا الحقيقية LIVE<div

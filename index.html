@@ -1,30 +1,17 @@
 <!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nile Shield - LIVE NASA</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}body{background:#050505;color:#fff;padding:10px;padding-bottom:120px}
-.card{background:#111;border:1px solid #222;border-radius:26px;padding:20px;margin:14px 0;text-align:center}
-.glow{border:1px solid #00ff88;box-shadow:0 0 18px #00ff8822}
-.clock-num{font-family:'Share Tech Mono',monospace;font-size:38px;color:#7ec8ff;text-shadow:0 0 15px #2a9cff;direction:ltr}
-.pct{display:flex;gap:10px;margin-top:16px}.pct div{flex:1;background:#0a0a0a;border:1px solid #222;border-radius:18px;padding:16px 4px}
-.sat-card{background:#0c0c0c;border:1px solid #333;border-radius:18px;padding:12px;margin:12px 0;text-align:right;display:flex;gap:12px;align-items:center}
-.sat-card img{width:85px;height:85px;border-radius:12px;object-fit:cover}
-.bot{position:fixed;bottom:12px;left:12px;right:12px;background:#1a1a1a;border:1px solid #333;border-radius:18px;padding:10px;display:flex;gap:8px;z-index:999}
-.bot input{flex:1;background:#000;border:none;color:#fff;padding:13px;border-radius:12px;outline:none}
-.bot button{background:#00ff88;color:#000;border:none;padding:12px 18px;border-radius:12px;font-weight:900}
-.live{font-size:11px;color:#00ff88;border:1px solid #00ff88;padding:4px 10px;border-radius:20px}
-</style></head><body>
-
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}body{background:#050505;color:#fff;padding:10px;padding-bottom:120px}.card{background:#111;border:1px solid #222;border-radius:26px;padding:20px;margin:14px 0;text-align:center}.glow{border:1px solid #00ff88;box-shadow:0 0 18px #00ff8822}.clock-num{font-family:'Share Tech Mono',monospace;font-size:32px;color:#7ec8ff;text-shadow:0 0 15px #2a9cff;direction:ltr}.pct{display:flex;gap:10px;margin-top:16px}.pct div{flex:1;background:#0a0a0a;border:1px solid #222;border-radius:18px;padding:16px 4px}.sat-card{background:#0c0c0c;border:1px solid #333;border-radius:18px;padding:12px;margin:12px 0;text-align:right;display:flex;gap:12px;align-items:center}.sat-card img{width:85px;height:85px;border-radius:12px;object-fit:cover}.bot{position:fixed;bottom:12px;left:12px;right:12px;background:#1a1a1a;border:1px solid #333;border-radius:18px;padding:10px;display:flex;gap:8px;z-index:999}.bot input{flex:1;background:#000;border:none;color:#fff;padding:13px;border-radius:12px;outline:none}.bot button{background:#00ff88;color:#000;border:none;padding:12px 18px;border-radius:12px;font-weight:900}.live{font-size:11px;color:#00ff88;border:1px solid #00ff88;padding:4px 10px;border-radius:20px}</style></head><body>
 <div class="card glow">
-<div style="display:flex;justify-content:space-between;align-items:center"><span id="clockFull" class="clock-num">00:00:00 ص</span><span class="live">● LIVE NASA</span></div>
-<h1 style="color:#00ff88;margin:14px 0;font-size:36px">🛰️ Nile Shield</h1>
+<div style="display:flex;justify-content:space-between;align-items:center"><span id="clockFull" class="clock-num">00:00:00</span><span class="live">● LIVE NASA</span></div>
+<h1 style="color:#00ff88;margin:14px 0;font-size:36px">Nile Shield</h1>
 <div class="pct"><div><small style="color:#777">غرب طهطا</small><h1>7%</h1></div><div><small style="color:#777">شرق طهطا</small><h1>33%</h1></div><div><small style="color:#777">وسط طهطا</small><h1>50%</h1></div></div>
 </div>
-
-<div class="card glow"><h1>🌍 الأرض</h1><p style="margin:10px 0">📍 ساحل طهطا - سوهاج</p><p style="color:#888">26.56 , 31.84</p><button style="background:#00ff88;color:#000;border:none;width:100%;padding:14px;border-radius:14px;margin-top:14px;font-weight:900" onclick="alert('تم ارسال تنبيه لـ 120 فلاح في طهطا')">📱 ارسال تنبيه</button></div>
-
-<div class="card"><h2>💧 نسبة المياه في التربة</h2><canvas id="waterChart"></canvas></div>
-<div class="card"><h2>🌾 توزيع المحاصيل في طهطا</h2><canvas id="cropsPie"></canvas><p style="color:#888;font-size:11px;margin-top:8px">بيانات Sentinel-2 NDVI - دقة 10م</p></div>
-<div class="card"><h2>📊 توزيع الانتاج السنوي</h2><canvas id="prodPie"></canvas></div>
-
-<div class="card glow"><h2>🛰️ صور الأقمار واستخدامها - LIVE NASA</h2><p style="color:#00ff88;font-size:11px;margin:8px 0" id="nasaDate">جاري تحميل بيانات ناسا الحية...</p>
-<div class="sat-card"><img src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=200"><div><b style="color:#00ff88">1. SMAP
+<div class="card glow"><h1>الارض</h1><p style="margin:10px 0">ساحل طهطا - سوهاج</p><p style="color:#888">26.56 , 31.84</p><button style="background:#00ff88;color:#000;border:none;width:100%;padding:14px;border-radius:14px;margin-top:14px;font-weight:900" onclick="alert('تم ارسال تنبيه لـ 120 فلاح في طهطا')">ارسال تنبيه</button></div>
+<div class="card"><h2>نسبة المياه في التربة</h2><canvas id="waterChart"></canvas></div>
+<div class="card"><h2>توزيع المحاصيل في طهطا</h2><canvas id="cropsPie"></canvas></div>
+<div class="card"><h2>توزيع الانتاج السنوي</h2><canvas id="prodPie"></canvas></div>
+<div class="card glow"><h2>صور الاقمار واستخدامها - LIVE NASA</h2><p style="color:#00ff88;font-size:11px;margin:8px 0" id="nasaDate">جاري تحميل بيانات ناسا الحية...</p>
+<div class="sat-card"><img src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=200"><div><b style="color:#00ff88">1. SMAP - رطوبة التربة</b><br><span style="font-size:11px;color:#aaa">يقيس المياه لعمق 5سم كل 3 ايام لتحديد الري في غرب طهطا - دقة 9كم - NASA POWER GWETTOP LIVE</span><br><span style="font-size:10px;background:#00ff8822;padding:2px 8px;border-radius:10px" id="smapLive">LIVE</span></div></div>
+<div class="sat-card"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=200"><div><b style="color:#ffcc00">2. Sentinel-2 - صحة المحصول</b><br><span style="font-size:11px;color:#aaa">يتصور الارض NDVI - نعرف القمح تعبان ولا كويس - دقة 10م كل 5 ايام</span><br><span style="font-size:10px;background:#ffcc0022;padding:2px 8px;border-radius:10px">دقة 10م - LIVE</span></div></div>
+<div class="sat-card"><img src="

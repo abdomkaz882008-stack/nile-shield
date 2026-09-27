@@ -44,7 +44,25 @@ body{background:var(--bg);color:#fff;font-family:sans-serif;padding:12px}
 
 <div class="card"><h2 style="text-align:center">🗺️ خريطة طهطا Live</h2><div id="map"></div>
 <div class="ai-box" style="margin-top:12px"><b>🤖 توصية AI:</b><p id="aiText">جاري تحليل ناسا...</p><button class="btn" style="margin-top:10px" onclick="window.open('https://wa.me/?text=Nile Shield - '+document.getElementById('aiText').innerText)">مشاركة واتساب 📲</button></div></div>
-
+<div class="card glow"><h2 style="text-align:center">🛰️ صور الأقمار واستخدامها</h2>
+<div style="display:grid;gap:10px;margin-top:10px">
+<div style="background:#0f0f0f;border:1px solid #333;border-radius:12px;padding:12px">
+<b style="color:#00ff88">1. SMAP - رطوبة التربة</b><br>
+<span style="font-size:12px;color:#aaa">بيقيس المياه في التربة لعمق 5سم كل 3 ايام - بنستخدمه لتحديد ميعاد الري في غرب طهطا</span><br>
+<span style="font-size:11px;background:#00ff8822;padding:2px 8px;border-radius:10px">دقة 9كم - LIVE</span>
+</div>
+<div style="background:#0f0f0f;border:1px solid #333;border-radius:12px;padding:12px">
+<b style="color:#ffcc00">2. Sentinel-2 - صحة المحصول</b><br>
+<span style="font-size:12px;color:#aaa">بيصور الأرض بالألوان الحمراء والخضرا NDVI - بنعرف القمح تعبان ولا كويس</span><br>
+<span style="font-size:11px;background:#ffcc0022;padding:2px 8px;border-radius:10px">دقة 10م - كل 5 ايام</span>
+</div>
+<div style="background:#0f0f0f;border:1px solid #333;border-radius:12px;padding:12px">
+<b style="color:#00aaff">3. Landsat-9 - توزيع المحاصيل</b><br>
+<span style="font-size:12px;color:#aaa">أقدم قمر من 1972 - بنستخدمه لمقارنة 2019-2025 وتوزيع القمح والذرة والبرسيم</span><br>
+<span style="font-size:11px;background:#00aaff22;padding:2px 8px;border-radius:10px">دقة 30م - أرشيف 50 سنة</span>
+</div>
+</div>
+</div>
 <div class="card"><h2 style="text-align:center">🛰️ تحليل صور القمر 2019-2025</h2><canvas id="satChart"></canvas></div>
 
 <div class="card"><h2 style="text-align:center">توزيع المحاصيل 🌾</h2><canvas id="cropChart"></canvas></div>

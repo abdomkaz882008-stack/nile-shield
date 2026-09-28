@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>NILE SHIELD - Time Machine 2019-2025</title>
+<style>
+body { background:#020a1a; color:white; font-family:'Cairo'; text-align:center; margin:0; overflow:hidden; }
+h1 { margin-top:20px; color:#00ff88; text-shadow:0 0 20px #00ff88; }
+#container { position:relative; width:80%; height:500px; margin:20px auto; border:3px solid #00ff88; border-radius:20px; overflow:hidden; box-shadow:0 0 40px #00ff88; }
+#satImage { width:100%; height:100%; object-fit:cover; transition:0.5s; }
+#info { position:absolute; bottom:0; width:100%; background:rgba(0,0,0,0.8); padding:15px; }
+#slider { width:80%; margin:20px auto; accent-color:#00ff88; height:10px; }
+.year-label { font-size:30px; font-weight:bold; color:#00ff88; }
+.stats { display:flex; justify-content:space-around; margin-top:10px; }
+.stat { background:rgba(0,255,136,0.2); padding:10px 20px; border-radius:10px; }
+</style>
+</head>
+<body>
+<h1>🛰️ NILE SHIELD TIME MACHINE - طهطا 2019-2025</h1>
+<p>اسحب وشوف طهطا وهي بتنشف من الفضاء</p>
+
+<div id="container">
+<img id="satImage" src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4">
+<div id="info">
+<div class="year-label" id="yearText">2019 - 60% خضار</div>
+<div class="stats">
+<div class="stat">💧 مياه: <span id="water">60%</span></div>
+<div class="stat">🌿 صحة: <span id="health">85%</span></div>
+<div class="stat">👨‍🌾 فلاحين: <span id="farmers">200</span></div>
+</div>
+</div>
+</div>
+
+<input type="range" id="slider" min="0" max="6" value="0" step="1">
+<div style="display:flex; justify-content:space-between; width:80%; margin:auto;">
+<span>2019</span><span>2020</span><span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span>
+</div>
+
+<script>
+const data = [
+{ year:"2019 - 60% خضار", water:"60%", health:"85%", farmers:"200", img:"https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", color:"#00ff88" },
+{ year:"2020 - 52% خضار", water:"52%", health:"78%", farmers:"185", img:"https://images.unsplash.com/photo-1451187580459-43490279c0fa", color:"#88ff00" },
+{ year:"2021 - 40% خضار", water:"40%", health:"65%", farmers:"160", img:"https://images.unsplash.com/photo-1506318137071-a8e063b4bec0", color:"#ffff00" },
+{ year:"2022 - 30% متوسط", water:"30%", health:"50%", farmers:"140", img:"https://images.unsplash.com/photo-1614732414444-096e5f1122d5", color:"#ffaa00" },
+{ year:"2023 - 18% خطر", water:"18%", health:"35%", farmers:"125", img:"https://images.unsplash.com/photo-1446776877081-d282a0f896e2", color:"#ff6600" },
+{ year:"2024 - 10% خطر شديد", water:"10%", health:"20%", farmers:"120", img:"https://images.unsplash.com/photo-1451187580459-43490279c0fa", color:"#ff2200" },
+{ year:"2025 - 7% صحراء - NILE SHIELD أنقذها", water:"7% -> 50% بعد التدخل", health:"90% بعد التدخل", farmers:"120 مستفيد", img:"https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4", color:"#00ff88" }
+];
+
+const slider = document.getElementById('slider');
+const yearText = document.getElementById('yearText');
+const satImage = document.getElementById('satImage');
+
+slider.addEventListener('input', (e)=>{
+const i = e.target.value;
+yearText.innerText = data[i].year;
+document.getElementById('water').innerText = data[i].water;
+document.getElementById('health').innerText = data[i].health;
+document.getElementById('farmers').innerText = data[i].farmers;
+satImage.style.filter = `hue-rotate(${i*30}deg) brightness(${1 - i*0.08})`;
+yearText.style.color = data[i].color;
+});
+</script>
+</body>
+</html>
